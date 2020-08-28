@@ -38,5 +38,5 @@ flight_list = [
 ]
 
 flight_list.each do |from, to|
-  Flight.create(start_id: from, end_id: to)
+  Flight.create(start_id: from, end_id: to, takeoff: Time.now)
 end
