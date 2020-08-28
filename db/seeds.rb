@@ -38,5 +38,7 @@ flight_list = [
 ]
 
 flight_list.each do |from, to|
-  Flight.create(start_id: from, end_id: to, takeoff: Time.now)
+  (1..30).each do |days|
+    Flight.create(start_id: from, end_id: to, takeoff: Date.today + days.days)
+  end
 end
