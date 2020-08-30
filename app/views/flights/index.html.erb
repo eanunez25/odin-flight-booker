@@ -30,5 +30,35 @@
   <% end %>
 <% end %>
 
-<%= form_with url: new_booking_path, method: get, local: true do %>
+<% unless @flights.none? %>
+  <%= form_with url: new_booking_path, method: "get", local: true do %>
+    <table>
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Flight</th>
+          <th>Date</th>
+          <th>Departs</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Duration</th>
+        <tr><br>
+      </thead>
+      <tbody>
+        <% @flights.each do |f| %>
+          <tr>
+            <td><%= radio_button_tag :flight_id, f.id %><td>
+            <td><%= f.id %><td>
+            <td><%= f.flight_date_formatted %><td>
+            <td><%= f.flight_time_formatted %><td>
+            <td><%= f.from_airport.code %><td>
+            <td><%= f.to_airport.code %><td>
+            <td><%= f.duration %> hours<td>
+          </tr><br>
+        <% end %>
+      </tbody>
+    </table>
+    <%= submit_tag "Book Flight" %>
+    <%= hidden_field_tag :num_tickets, params[:num_tickets] %>
+  <% end %>
 <% end %>
