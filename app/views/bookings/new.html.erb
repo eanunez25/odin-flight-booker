@@ -1,2 +1,9 @@
-<h1>Bookings#new</h1>
-<p>Find me in app/views/bookings/new.html.erb</p>
+<h1>Book Flight #<%= @flight.id %></h1>
+
+Departing on <%= @flight.flight_date_formatted %> at 
+  <%= @flight.flight_time_formatted %> ||
+  <%= @flight.from_airport.code %> to <%= @flight.to_airport.code %>
+
+
+  
+

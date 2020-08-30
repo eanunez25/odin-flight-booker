@@ -1,4 +1,4 @@
-<h1>Flights</h1>
+<a href="/flights"><h1>Flights</h1></a>
 
 
 <%= form_with url: flights_path, method: "get", local: true do %>
@@ -15,22 +15,10 @@
   <%= select_tag :date, options_for_select(@dates) %><br>
 
   <%= submit_tag "Search Flights"  %>
-<% end %><br>
-
-
-<% unless @flights.empty? %>
-  Total flights: <%= @flights.count %>
-  <% @flights.each do  |f| %>
-    <ul>
-      <li>From: <%= f.from_airport.code %></li>
-      <li>To: <%= f.to_airport.code %></li>
-      <li>Duration: <%= f.duration %></li>
-      <li>Time: <%= f.flight_time_formatted %></li>
-    </ul>
-  <% end %>
-<% end %>
+<% end %><br></br>
 
 <% unless @flights.none? %>
+  Total flights: <%= @flights.count %>
   <%= form_with url: new_booking_path, method: "get", local: true do %>
     <table>
       <thead>
