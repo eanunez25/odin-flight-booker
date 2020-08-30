@@ -28,6 +28,7 @@
       <li>Time: <%= f.flight_time_formatted %></li>
     </ul>
   <% end %>
-<% else %>
+<% end %>
 
+<%= form_with url: new_booking_path, method: get, local: true do %>
 <% end %>
