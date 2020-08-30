@@ -5,5 +5,13 @@ Departing on <%= @flight.flight_date_formatted %> at
   <%= @flight.from_airport.code %> to <%= @flight.to_airport.code %>
 
 
-  
+<%= form_with model: @booking, url: bookings_path, local: true do |f| %>
+  <%= f.hidden_field :flight_id, value: @flight.id %>
 
+  <%= f.fields_for :passengers do |p| %>
+    <%= p.label :name %>
+    <%= p.text_field :name %><br>
+  <% end %><br>
+
+  <%= f.submit "Book Flight" %>
+<% end %>
