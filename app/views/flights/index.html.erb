@@ -1,5 +1,5 @@
-<h1>Flights#index</h1>
-<p>Find me in app/views/flights/index.html.erb</p>
+<h1>Flights</h1>
+
 
 <%= form_with url: flights_path, method: "get", local: true do %>
   <%= label_tag :from_airport %>
@@ -11,12 +11,23 @@
   <%= label_tag :num_tickets, "Passengers: "%>
   <%= select_tag :num_tickets, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4]]) %><br>
 
-  <%= label_tag :takeoff, "Departure time: " %>
-  <%= select_tag :takeoff, options_from_collection_for_select(Flight.all, :takeoff, :flight_date_formatted) %><br>
+  <%= label_tag :date, "Departure date: " %>
+  <%= select_tag :date, options_for_select(@dates) %><br>
 
   <%= submit_tag "Search Flights"  %>
+<% end %><br>
+
+
+<% unless @flights.empty? %>
+  Total flights: <%= @flights.count %>
+  <% @flights.each do  |f| %>
+    <ul>
+      <li>From: <%= f.from_airport.code %></li>
+      <li>To: <%= f.to_airport.code %></li>
+      <li>Duration: <%= f.duration %></li>
+      <li>Time: <%= f.flight_time_formatted %></li>
+    </ul>
+  <% end %>
+<% else %>
+
 <% end %>
-
-
-
-<%= @flights.count %>

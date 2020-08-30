@@ -39,6 +39,11 @@ flight_list = [
 
 flight_list.each do |from, to|
   (1..30).each do |days|
-    Flight.create(start_id: from, end_id: to, takeoff: Date.today + days.days)
+    times = rand(1..10)
+    times.times do |t|
+      time = rand(1..23)
+      duration = rand(2..8)
+      Flight.create(start_id: from, end_id: to, takeoff: Date.today + days.days + time.hours, duration: duration)
+    end
   end
 end
