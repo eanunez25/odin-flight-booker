@@ -13,10 +13,15 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.flight_id = booking_params[:flight_id]
     if @booking.save
-      redirect_to root_url
+      redirect_to @booking
     else
       render :new
     end
+  end
+
+  def show
+    @booking = Booking.find(params[:id])
+    @flight = @booking.flight
   end
 
   private

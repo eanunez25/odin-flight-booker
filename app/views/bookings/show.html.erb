@@ -1,0 +1,13 @@
+<h1>Booking Confirmation</h1>
+
+<p>Your confirmation number is <%= @booking.id%></p>
+<p>Flight Number: <%= @booking.flight_id %></p>
+
+Departing on <%= @flight.flight_date_formatted %> at 
+  <%= @flight.flight_time_formatted %> ||
+  <%= @flight.from_airport.code %> to <%= @flight.to_airport.code %>
+
+<p>Passengers (<%= @booking.passengers.count %>): </p>
+<% @booking.passengers.each do |p| %>
+  <li><%= p.name %></li>
+<% end %>
