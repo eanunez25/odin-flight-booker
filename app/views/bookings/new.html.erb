@@ -1,17 +1,21 @@
-<h1>Book Flight #<%= @flight.id %></h1>
+<div class="row">
+  <div class="col-md-8">
+    <h1>Book Flight #<%= @flight.id %></h1>
 
-Departing on <%= @flight.flight_date_formatted %> at 
-  <%= @flight.flight_time_formatted %> ||
-  <%= @flight.from_airport.code %> to <%= @flight.to_airport.code %>
+    <p>Departing on <%= @flight.flight_date_formatted %> at 
+      <%= @flight.flight_time_formatted %> ||
+      <%= @flight.from_airport.code %> to <%= @flight.to_airport.code %></p>
 
 
-<%= form_with model: @booking, url: bookings_path, local: true do |f| %>
-  <%= f.hidden_field :flight_id, value: @flight.id %>
+    <%= form_with model: @booking, url: bookings_path, local: true do |f| %>
+      <%= f.hidden_field :flight_id, value: @flight.id %>
 
-  <%= f.fields_for :passengers do |p| %>
-    <%= p.label :name %>
-    <%= p.text_field :name %><br>
-  <% end %><br>
+      <%= f.fields_for :passengers do |p| %>
+        <%= p.label :name, "Passenger name" %>
+        <%= p.text_field :name, class: 'form-control' %>
+      <% end %><br>
 
-  <%= f.submit "Book Flight" %>
-<% end %>
+      <%= f.submit "Book Flight", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

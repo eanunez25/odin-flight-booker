@@ -1,52 +1,52 @@
-<a href="/flights"><h1>Flights</h1></a>
+<div class="row">
+  <div class="col-md-8">
+    <h1>Flights</h1>
 
+    <div class="row">
+      <%= form_with url: flights_path, method: "get", local: true do %>
+        <%= select_tag :from_airport, options_from_collection_for_select(Airport.all, :id, :code), prompt: "from", class: 'form-control' %>
 
-<%= form_with url: flights_path, method: "get", local: true do %>
-  <%= label_tag :from_airport %>
-  <%= select_tag :from_airport, options_from_collection_for_select(Airport.all, :id, :code) %><br>
+        <%= select_tag :to_airport, options_from_collection_for_select(Airport.all, :id, :code), prompt: "to", class: 'form-control' %>
 
-  <%= label_tag :to_airport %>
-  <%= select_tag :to_airport, options_from_collection_for_select(Airport.all, :id, :code) %><br>
+        <%= select_tag :num_tickets, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4]]), prompt: "passengers", class: 'form-control' %>
 
-  <%= label_tag :num_tickets, "Passengers: "%>
-  <%= select_tag :num_tickets, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4]]) %><br>
+        <%= select_tag :date, options_for_select(@dates), prompt: "date", class: 'form-control' %>
 
-  <%= label_tag :date, "Departure date: " %>
-  <%= select_tag :date, options_for_select(@dates) %><br>
+        <%= submit_tag "Search Flights", class: 'btn btn-primary'  %>
+      <% end %>
+    </div><br></br>
 
-  <%= submit_tag "Search Flights"  %>
-<% end %><br></br>
-
-<% unless @flights.none? %>
-  Total flights: <%= @flights.count %>
-  <%= form_with url: new_booking_path, method: "get", local: true do %>
-    <table>
-      <thead>
-        <tr>
-          <th>Select</th>
-          <th>Flight</th>
-          <th>Date</th>
-          <th>Departs</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Duration</th>
-        <tr><br>
-      </thead>
-      <tbody>
-        <% @flights.each do |f| %>
-          <tr>
-            <td><%= radio_button_tag :flight_id, f.id %><td>
-            <td><%= f.id %><td>
-            <td><%= f.flight_date_formatted %><td>
-            <td><%= f.flight_time_formatted %><td>
-            <td><%= f.from_airport.code %><td>
-            <td><%= f.to_airport.code %><td>
-            <td><%= f.duration %> hours<td>
-          </tr><br>
-        <% end %>
-      </tbody>
-    </table>
-    <%= submit_tag "Book Flight" %>
-    <%= hidden_field_tag :num_tickets, params[:num_tickets] %>
-  <% end %>
-<% end %>
+    <% unless @flights.none? %>
+      <%= form_with url: new_booking_path, method: "get", local: true do %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Select</th>
+              <th scope="col">Flight</th>
+              <th scope="col">Date</th>
+              <th scope="col">Departs</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @flights.each do |f| %>
+              <tr>
+                <th scope="row"><%= radio_button_tag :flight_id, f.id , class: 'form-control' %></th>
+                <td><%= f.id %></td>
+                <td><%= f.flight_date_formatted %></td>
+                <td><%= f.flight_time_formatted %></td>
+                <td><%= f.from_airport.code %></td>
+                <td><%= f.to_airport.code %></td>
+                <td><%= f.duration %> hours</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= submit_tag "Book Flight", class: 'btn btn-primary' %>
+        <%= hidden_field_tag :num_tickets, params[:num_tickets] %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
